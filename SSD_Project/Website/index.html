@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>9 men morris game</title>
+
+
+  <!-- tailwind -->
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+
+  <!-- flowbite -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.8.1/flowbite.min.css" rel="stylesheet" />
+
+  <!-- google font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nosifer&display=swap" rel="stylesheet">
+  <!-- style link -->
+  <link rel="stylesheet" href="style.css">
+
+  <!-- inbluit library -->
+  <script src="./Libraries/p5.min.js"></script>
+  <script src="./Libraries/p5.sound.min.js"></script>
+
+
+  <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.7.0/moment.min.js"></script>
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/flat-ui/2.0/css/flat-ui.css">
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+</head>
+
+<body>
+
+
+
+  <div class="bg-gray-900">
+    <h1 class="mb-4 text-3xl font-extrabold text-white md:text-5xl lg:text-6xl text-center py-4">
+      <span class="text-transparent bg-clip-text bg-gradient-to-r to-emerald-600 from-sky-400">
+        9 Men Morris Game
+      </span>
+    </h1>
+    <div style="display: flex; justify-content: flex-end;">
+      <input class="toggle btn btn-lg btn-secondary text-2xl" type="button" value="HOW TO PLAY"
+        style="height: 70px; /*! font-size: 155; */ font-size: 29px; margin-right: 10px; width: 5%;">
+      <input class="toggle btn btn-lg btn-primary text-2xl" type="button" value="SAVE"
+        style="height: 70px; /*! font-size: 155; */ font-size: 29px; margin-right: 10px;">
+      <input class="btn btn-block btn-danger text-2xl" type="button" value="RESET"
+        style="height: 70px; /*! font-size: 155; */ font-size: 29px;">
+    </div>
+
+  </div>
+  <div class="flex bg-gray-800">
+    <!-- Player One -->
+    <div class="w-1/2 bg-gray-200 p-4">
+      <div class="bg-white rounded p-4 shadow text-center">
+        <h1 class="flex items-center text-5xl font-extrabold dark:text-white player_name_text">
+
+          Player
+          <span
+            class="bg-blue-100 text-blue-800 text-2xl font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800 ml-2">
+            One
+          </span>
+        </h1>
+        <div id="player_one_remaining_piece" class="flex items-center"></div>
+        <div id="player_out_one_piece" class="flex items-center"></div>
+      </div>
+    </div>
+
+    <!-- Player Two -->
+    <div class="w-1/2 bg-gray-200 p-4">
+      <div class="bg-white rounded p-4 shadow text-center ">
+        <h1 class="flex items-center text-5xl font-extrabold dark:text-white player_name_text">
+          Player
+          <span
+            class="bg-blue-100 text-blue-800 text-2xl font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800 ml-2">
+            Two
+          </span>
+        </h1>
+        <div id="player_two_remaining_piece" class="flex items-center"></div>
+        <div id="player_out_two_piece" class="flex items-center"></div>
+      </div>
+    </div>
+  </div>
+
+  <div id="howToPlayModal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeModal()">&times;</span>
+      <h1 style="text-align: center;font-size: 70px;padding: 40px;margin-bottom: 30px;font-family: cursive;">How To Play</h2>
+      <!-- Add your instructions here -->
+      <ul>
+        <li>PLACE ALL YOUR PIECES (MEN) ON BOARD AND MOVE THEM TO FORM A LINE OF 3 PIECES (A MILL).</li>
+        <li>ONCE YOU FORM A MILL, YOU CAN REMOVE ONE OF YOUR OPPONENT'S MEN. BREAK A MILL TO UNLOCK THE MILLS AGAIN.</li>
+        <li>PIECES FROM A FORMED MILL CAN'T BE REMOVED UNLESS NO OTHER MEN ARE AVAILABLE.</li>
+        <li>YOUR AIM IS TO LEAVE YOUR OPPONENT WITH EITHER 2 PIECES OR 0 MOVES!</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Timer Container -->
+  <div class="timer-container">
+    <!-- Left Timer -->
+    <div id="left" class="time-container w-96 ">
+      <input class="toggle btn btn-lg btn-primary btn-block text-2xl" type="button" value="Player 1"
+        style="height: 70px;/*! font-size: 155; */font-size: 29px;">
+      <span class="time" style="color: white;"></span>
+    </div>
+    <div id="controls" class="time-container w-96">
+      <h1 class="text-3xl" style="color: white;">Morris Clock</h1>
+      <div class="form-group">
+        <input id="time-input" class="form-control text-lg" type="number" placeholder="Minutes" min="1" value="5"
+          style="size: 20px;height: 45px;font-size: 27px;">
+        <input id="start" class="btn btn-block btn-success text-3xl" type="button" value="Start"
+          style="height: 50px;font-size: 30px;margin: 10px;">
+        <input id="pause" class="btn btn-block btn-default" type="button" value="Pause"
+          style="height: 50px; font-size: 30px; margin: 10px; color: purple;">
+        <input id="reset" class="btn btn-block btn-danger" type="button" value="Reset"
+          style="height: 50px;font-size: 30px;margin: 10px;">
+      </div>
+      <!-- <p>Crafted by <a href="https://www.linkedin.com/in/soham-kale-811316206/">@sohamk</a></p> -->
+    </div>
+    <!-- Right Timer -->
+    <div id="right" class="time-container w-96">
+      <input class="toggle btn btn-lg btn-primary text-2xl" type="button" value="Player 2"
+        style="height: 70px;/*! font-size: 155; */font-size: 29px;">
+      <span class="time" style="color: white;"></span>
+    </div>
+  </div>
+
+  <div id="board">
+
+  </div>
+
+
+  <script src="design.js"></script>
+  <!-- <button class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-3 px-6 rounded inline-flex items-center">
+        <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 512 512" class="mr-2"><style>svg{fill:#005eff}</style><path d="M463.5 224H472c13.3 0 24-10.7 24-24V72c0-9.7-5.8-18.5-14.8-22.2s-19.3-1.7-26.2 5.2L413.4 96.6c-87.6-86.5-228.7-86.2-315.8 1c-87.5 87.5-87.5 229.3 0 316.8s229.3 87.5 316.8 0c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0c-62.5 62.5-163.8 62.5-226.3 0s-62.5-163.8 0-226.3c62.2-62.2 162.7-62.5 225.3-1L327 183c-6.9 6.9-8.9 17.2-5.2 26.2s12.5 14.8 22.2 14.8H463.5z"/></svg>
+        <span class="ml-2">Reset</span>
+    </button>
+     -->
+
+</body>
+
+</html>

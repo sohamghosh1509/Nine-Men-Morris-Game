@@ -1,0 +1,16 @@
+https://iiitaphyd-my.sharepoint.com/personal/soumitra_ghosh_research_iiit_ac_in/_layouts/15/onedrive.aspx?id=%2Fpersonal%2Fsoumitra%5Fghosh%5Fresearch%5Fiiit%5Fac%5Fin%2FDocuments%2FOthers%2FSSD%5FTA%2F2023%2FProject%2FJavascript%5Fprojects%5Fv1%2E2%2Epdf&parent=%2Fpersonal%2Fsoumitra%5Fghosh%5Fresearch%5Fiiit%5Fac%5Fin%2FDocuments%2FOthers%2FSSD%5FTA%2F2023%2FProject&ga=1
+
+https://www.mathplayground.com/logic_nine_mens_morris.html
+
+
+
+git hub
+
+git init
+git add README.md
+git add .
+git commit -m "first commit"
+git branch -M main
+git remote add origin <https git link url>
+git remote set-url origin <https url link>
+git push -u origin main
